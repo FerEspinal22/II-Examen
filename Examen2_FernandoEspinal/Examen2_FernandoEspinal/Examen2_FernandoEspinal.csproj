@@ -50,13 +50,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controladores\ClienteController.cs" />
     <Compile Include="Controladores\LoginController.cs" />
     <Compile Include="Controladores\UsuarioController.cs" />
+    <Compile Include="Modelos\DAO\ClienteDAO.cs" />
     <Compile Include="Modelos\DAO\Conexion.cs" />
     <Compile Include="Modelos\DAO\UsuarioDAO.cs" />
+    <Compile Include="Modelos\Entidades\Cliente.cs" />
     <Compile Include="Modelos\Entidades\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ClientesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\ClientesView.Designer.cs">
+      <DependentUpon>ClientesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\DetalleView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\DetalleView.Designer.cs">
+      <DependentUpon>DetalleView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\EstadoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\EstadoView.Designer.cs">
+      <DependentUpon>EstadoView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\LoginView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +95,12 @@
     <Compile Include="Vistas\MenuView.Designer.cs">
       <DependentUpon>MenuView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\TicketView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\TicketView.Designer.cs">
+      <DependentUpon>TicketView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\UsuariosView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,19 +109,26 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <EmbeddedResource Include="Vistas\ClientesView.resx">
+      <DependentUpon>ClientesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\DetalleView.resx">
+      <DependentUpon>DetalleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\EstadoView.resx">
+      <DependentUpon>EstadoView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\MenuView.resx">
       <DependentUpon>MenuView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\TicketView.resx">
+      <DependentUpon>TicketView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\UsuariosView.resx">
       <DependentUpon>UsuariosView.cs</DependentUpon>
@@ -115,19 +154,16 @@
     <None Include="Resources\rating.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\restore.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\antivirus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\unlock.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\tickets.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tickets %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customer-support.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comprobado.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

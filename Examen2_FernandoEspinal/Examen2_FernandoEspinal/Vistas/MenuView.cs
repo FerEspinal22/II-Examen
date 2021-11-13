@@ -14,5 +14,48 @@ namespace Examen2_FernandoEspinal.Vistas
         {
             InitializeComponent();
         }
+
+        UsuariosView vistaUsuarios;
+        ClientesView vistaClientes;
+
+        private void UsuariosToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (vistaUsuarios == null)
+            {
+                vistaUsuarios = new UsuariosView();
+                vistaUsuarios.MdiParent = this;
+                vistaUsuarios.FormClosed += VistaUsuarios_FormClosed; 
+                vistaUsuarios.Show();
+            }
+            else
+            {
+                vistaUsuarios.Activate();
+            }
+        }
+
+        private void VistaUsuarios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            vistaUsuarios = null;
+        }
+
+        private void ClientesToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (vistaClientes == null)
+            {
+                vistaClientes = new ClientesView();
+                vistaClientes.MdiParent = this;
+                vistaClientes.FormClosed += VistaClientes_FormClosed;
+                vistaClientes.Show();
+            }
+            else
+            {
+                vistaClientes.Activate();
+            }
+        }
+
+        private void VistaClientes_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            vistaClientes = null;
+        }
     }
 }

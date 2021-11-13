@@ -63,9 +63,9 @@ namespace Examen2_FernandoEspinal.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap antivirus {
+        internal static System.Drawing.Bitmap comprobado {
             get {
-                object obj = ResourceManager.GetObject("antivirus", resourceCulture);
+                object obj = ResourceManager.GetObject("comprobado", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Examen2_FernandoEspinal.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rating {
+        internal static System.Drawing.Bitmap customer_support {
             get {
-                object obj = ResourceManager.GetObject("rating", resourceCulture);
+                object obj = ResourceManager.GetObject("customer-support", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Examen2_FernandoEspinal.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap restore {
+        internal static System.Drawing.Bitmap rating {
             get {
-                object obj = ResourceManager.GetObject("restore", resourceCulture);
+                object obj = ResourceManager.GetObject("rating", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,16 +116,6 @@ namespace Examen2_FernandoEspinal.Properties {
         internal static System.Drawing.Bitmap tickets__1_ {
             get {
                 object obj = ResourceManager.GetObject("tickets (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap unlock {
-            get {
-                object obj = ResourceManager.GetObject("unlock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

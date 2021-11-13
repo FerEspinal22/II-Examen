@@ -1,5 +1,4 @@
-﻿using Examen2_FernandoEspinal.Controladores;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,12 +10,11 @@ using System.Windows.Forms;
 
 namespace Examen2_FernandoEspinal.Vistas
 {
-    public partial class UsuariosView : Form
+    public partial class DetalleView : Form
     {
-        public UsuariosView()
+        public DetalleView()
         {
             InitializeComponent();
-            UsuarioController controller = new UsuarioController(this);
         }
     }
 }
