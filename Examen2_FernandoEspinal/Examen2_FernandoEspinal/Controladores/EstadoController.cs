@@ -6,14 +6,14 @@ using System.Windows.Forms;
 
 namespace Examen2_FernandoEspinal.Controladores
 {
-    public class ClienteController
+    public class EstadoController
     {
-        ClientesView vista;
-        ClienteDAO clienteDAO = new ClienteDAO();
-        Cliente cliente = new Cliente();
-        string operacion = string.Empty;
+        EstadoView vista;
+        Estados estado = new Estados();
+        EstadoDAO estadoDAO = new EstadoDAO();
+        string operacion = String.Empty;
 
-        public ClienteController(ClientesView view)
+        public EstadoController(EstadoView view)
         {
             vista = view;
             vista.NuevoButton.Click += new EventHandler(Nuevo);
@@ -34,59 +34,54 @@ namespace Examen2_FernandoEspinal.Controladores
 
         private void Guardar(object sender, EventArgs e)
         {
-            if (vista.IdentidadMaskedTextBox.Text == "")
+            if (vista.EstadoTextBox.Text == "")
             {
-                vista.errorProvider1.SetError(vista.IdentidadMaskedTextBox, "Ingrese una identidad");
-                vista.IdentidadMaskedTextBox.Focus();
+                vista.errorProvider1.SetError(vista.EstadoTextBox, "Ingrese un modelo");
+                vista.EstadoTextBox.Focus();
                 return;
             }
-            if (vista.NombreTextBox.Text == "")
+
+            if (vista.EstadoTextBox.Text != "Sin resolver" && vista.EstadoTextBox.Text != "Abierto" && vista.EstadoTextBox.Text != "En espera" && vista.EstadoTextBox.Text != "Cerrado")
             {
-                vista.errorProvider1.SetError(vista.NombreTextBox, "Ingrese un nombre");
-                vista.NombreTextBox.Focus();
+                MessageBox.Show("Los valores validos son: 'Abierto', 'En espera', 'Sin resolver', 'Cerrado'");
+                vista.EstadoTextBox.Focus();
                 return;
             }
-            if (vista.EmailTextBox.Text == "")
-            {
-                vista.errorProvider1.SetError(vista.EmailTextBox, "Ingrese un email");
-                vista.EmailTextBox.Focus();
-                return;
-            }
+
+
             try
             {
-                cliente.Identidad = vista.IdentidadMaskedTextBox.Text;
-                cliente.Nombre = vista.NombreTextBox.Text;
-                cliente.Email = vista.EmailTextBox.Text;
+                estado.Estado = vista.EstadoTextBox.Text;
 
                 if (operacion == "Nuevo")
                 {
-                    bool inserto = clienteDAO.InsertarNuevoCliente(cliente);
+                    bool inserto = estadoDAO.InsertarNuevoEstado(estado);
                     if (inserto)
                     {
                         DeshabilitarControles();
                         LimpiarControles();
-                        MessageBox.Show("Cliente creado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Creado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ListarClientes();
                     }
                     else
                     {
-                        MessageBox.Show("Cliente no se pudo insertar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo crear", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else if (operacion == "Modificar")
                 {
-                    cliente.Id = Convert.ToInt32(vista.IdTextBox.Text);
-                    bool modifico = clienteDAO.ActualizarCliente(cliente);
+                    estado.Id = Convert.ToInt32(vista.IdTextBox.Text);
+                    bool modifico = estadoDAO.ActualizarEstado(estado);
                     if (modifico)
                     {
                         DeshabilitarControles();
                         LimpiarControles();
-                        MessageBox.Show("Cliente modificado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Modificado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ListarClientes();
                     }
                     else
                     {
-                        MessageBox.Show("Cliente no se pudo modificar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo modificar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -98,15 +93,13 @@ namespace Examen2_FernandoEspinal.Controladores
 
         private void Modificar(object sender, EventArgs e)
         {
-            if (vista.ClientesDataGridView.SelectedRows.Count > 0)
+            if (vista.EstadoDataGridView.SelectedRows.Count > 0)
             {
                 operacion = "Modificar";
                 HabilitarControles();
 
-                vista.IdTextBox.Text = vista.ClientesDataGridView.CurrentRow.Cells["ID"].Value.ToString();
-                vista.IdentidadMaskedTextBox.Text = vista.ClientesDataGridView.CurrentRow.Cells["IDENTIDAD"].Value.ToString();
-                vista.NombreTextBox.Text = vista.ClientesDataGridView.CurrentRow.Cells["NOMBRE"].Value.ToString();
-                vista.EmailTextBox.Text = vista.ClientesDataGridView.CurrentRow.Cells["EMAIL"].Value.ToString();
+                vista.IdTextBox.Text = vista.EstadoDataGridView.CurrentRow.Cells["ID"].Value.ToString();
+                vista.EstadoTextBox.Text = vista.EstadoDataGridView.CurrentRow.Cells["ESTADO"].Value.ToString();
             }
             else
             {
@@ -116,22 +109,23 @@ namespace Examen2_FernandoEspinal.Controladores
 
         private void Load(object sender, EventArgs e)
         {
-            ListarClientes();   
+            ListarClientes();
         }
 
         private void Eliminar(object sender, EventArgs e)
         {
-            if (vista.ClientesDataGridView.SelectedRows.Count > 0)
+            if (vista.EstadoDataGridView.SelectedRows.Count > 0)
             {
-                bool elimino = clienteDAO.EliminarUsuario(Convert.ToInt32(vista.ClientesDataGridView.CurrentRow.Cells["ID"].Value));
+                bool elimino = estadoDAO.EliminarSoporte(Convert.ToInt32(vista.EstadoDataGridView.CurrentRow.Cells["ID"].Value));
+
                 if (elimino)
                 {
-                    MessageBox.Show("Cliente eliminado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Eliminado exitosamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ListarClientes();
                 }
                 else
                 {
-                    MessageBox.Show("Cliente no se pudo eliminar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se pudo eliminar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }
@@ -141,22 +135,21 @@ namespace Examen2_FernandoEspinal.Controladores
         {
             DeshabilitarControles();
             LimpiarControles();
-            cliente = null;
+            estado = null;
         }
 
         #endregion
 
         private void ListarClientes()
         {
-            vista.ClientesDataGridView.DataSource = clienteDAO.GetClientes();
+            vista.EstadoDataGridView.DataSource = estadoDAO.GetEstado();
         }
 
         #region HABILITAR, DESHABILITAR Y LIMPIAR CONTROLES
         private void HabilitarControles()
         {
-            vista.IdentidadMaskedTextBox.Enabled = true;
-            vista.NombreTextBox.Enabled = true;
-            vista.EmailTextBox.Enabled = true;
+            vista.IdTextBox.Enabled = true;
+            vista.EstadoTextBox.Enabled = true;
 
             vista.GuardarButton.Enabled = true;
             vista.CancelarButton.Enabled = true;
@@ -166,9 +159,8 @@ namespace Examen2_FernandoEspinal.Controladores
 
         private void DeshabilitarControles()
         {
-            vista.IdentidadMaskedTextBox.Enabled = false;
-            vista.NombreTextBox.Enabled = false;
-            vista.EmailTextBox.Enabled = false;
+            vista.IdTextBox.Enabled = true;
+            vista.EstadoTextBox.Enabled = true;
 
             vista.GuardarButton.Enabled = false;
             vista.CancelarButton.Enabled = false;
@@ -180,9 +172,7 @@ namespace Examen2_FernandoEspinal.Controladores
         private void LimpiarControles()
         {
             vista.IdTextBox.Clear();
-            vista.IdentidadMaskedTextBox.Clear();
-            vista.NombreTextBox.Clear();
-            vista.EmailTextBox.Clear();
+            vista.EstadoTextBox.Clear();
         }
 
         #endregion

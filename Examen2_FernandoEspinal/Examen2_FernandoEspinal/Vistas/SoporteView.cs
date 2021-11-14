@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace Examen2_FernandoEspinal.Vistas
 {
-    public partial class TicketView : Form
+    public partial class SoporteView : Form
     {
-        public TicketView()
+        public SoporteView()
         {
             InitializeComponent();
-            TicketController controlador = new TicketController(this);
+            SoporteController controlador = new SoporteController(this);
         }
     }
 }

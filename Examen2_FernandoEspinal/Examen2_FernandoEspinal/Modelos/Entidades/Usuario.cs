@@ -1,4 +1,6 @@
-﻿namespace Examen2_FernandoEspinal.Modelos.Entidades
+﻿
+
+namespace Examen2_FernandoEspinal.Modelos.Entidades
 {
     public class Usuario
     {

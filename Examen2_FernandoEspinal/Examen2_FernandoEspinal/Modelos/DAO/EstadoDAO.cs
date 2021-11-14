@@ -6,29 +6,27 @@ using System.Text;
 
 namespace Examen2_FernandoEspinal.Modelos.DAO
 {
-    public class ClienteDAO : Conexion
+    public class EstadoDAO : Conexion
     {
         SqlCommand comando = new SqlCommand();
 
         #region PUBLIC BOOLS
-        public bool InsertarNuevoCliente(Cliente cliente)
+        public bool InsertarNuevoEstado(Estados estado)
         {
             bool inserto = false;
 
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" INSERT INTO Cliente ");
-                sql.Append(" VALUES (@Identidad, @Nombre, @Email); ");
+                sql.Append(" INSERT INTO ESTADO ");
+                sql.Append(" VALUES (@Estado); ");
 
                 comando.Connection = MiConexion;
                 MiConexion.Open();
                 comando.Parameters.Clear(); //permite ingresar valores consecutivamente
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add("@Identidad", SqlDbType.NVarChar, 20).Value = cliente.Identidad;
-                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 70).Value = cliente.Nombre;
-                comando.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = cliente.Email;
+                comando.Parameters.Add("@Estado", SqlDbType.NVarChar, 30).Value = estado.Estado;
 
                 comando.ExecuteNonQuery();
                 inserto = true;
@@ -41,13 +39,13 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return inserto;
         }
 
-        public DataTable GetClientes()
+        public DataTable GetEstado()
         {
             DataTable dt = new DataTable();
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" SELECT * FROM CLIENTE ");
+                sql.Append(" SELECT * FROM ESTADO ");
 
                 comando.Connection = MiConexion;
                 MiConexion.Open();
@@ -63,14 +61,14 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return dt;
         }
 
-        public bool ActualizarCliente(Cliente cliente)
+        public bool ActualizarEstado(Estados estado)
         {
             bool modifico = false;
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" UPDATE CLIENTE ");
-                sql.Append(" SET IDENTIDAD = @Identidad, NOMBRE = @Nombre, EMAIL = @Email  ");
+                sql.Append(" UPDATE ESTADO ");
+                sql.Append(" SET ESTADO = @Estado ");
                 sql.Append(" WHERE ID = @Id; ");
 
                 comando.Connection = MiConexion;
@@ -78,14 +76,11 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
                 comando.Parameters.Clear();
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add("@Id", SqlDbType.Int).Value = cliente.Id;
-                comando.Parameters.Add("@Identidad", SqlDbType.NVarChar, 20).Value = cliente.Identidad;
-                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 70).Value = cliente.Nombre;
-                comando.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = cliente.Email;
+                comando.Parameters.Add("@Id", SqlDbType.Int).Value = estado.Id;
+                comando.Parameters.Add("@Estado", SqlDbType.NVarChar, 30).Value = estado.Estado;
                 comando.ExecuteNonQuery();
                 modifico = true;
                 MiConexion.Close();
-
             }
             catch (Exception)
             {
@@ -94,13 +89,13 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return modifico;
         }
 
-        public bool EliminarUsuario(int id)
+        public bool EliminarSoporte(int id)
         {
             bool elimino = false;
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" DELETE FROM CLIENTE ");
+                sql.Append(" DELETE FROM ESTADO ");
                 sql.Append(" WHERE ID = @Id; ");
 
                 comando.Connection = MiConexion;
@@ -112,7 +107,6 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
                 comando.ExecuteNonQuery();
                 elimino = true;
                 MiConexion.Close();
-
             }
             catch (Exception)
             {

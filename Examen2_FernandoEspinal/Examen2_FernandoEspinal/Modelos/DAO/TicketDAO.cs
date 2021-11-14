@@ -6,48 +6,48 @@ using System.Text;
 
 namespace Examen2_FernandoEspinal.Modelos.DAO
 {
-    public class ClienteDAO : Conexion
+    public class TicketDAO : Conexion
     {
         SqlCommand comando = new SqlCommand();
 
-        #region PUBLIC BOOLS
-        public bool InsertarNuevoCliente(Cliente cliente)
+        public bool InsertarNuevoTicket(Ticket ticket)
         {
             bool inserto = false;
 
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" INSERT INTO Cliente ");
-                sql.Append(" VALUES (@Identidad, @Nombre, @Email); ");
+                sql.Append(" INSERT INTO TICKET ");
+                sql.Append(" VALUES (@Fecha, @Nombre, @TipoSoporte, @Estado); ");
 
                 comando.Connection = MiConexion;
                 MiConexion.Open();
                 comando.Parameters.Clear(); //permite ingresar valores consecutivamente
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add("@Identidad", SqlDbType.NVarChar, 20).Value = cliente.Identidad;
-                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 70).Value = cliente.Nombre;
-                comando.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = cliente.Email;
+                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = ticket.Fecha;
+                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 30).Value = ticket.Nombre;
+                comando.Parameters.Add("@TipoSoporte", SqlDbType.NVarChar, 50).Value = ticket.TipoSoporte;
+                comando.Parameters.Add("@Estado", SqlDbType.NVarChar, 30).Value = ticket.Estado;
 
                 comando.ExecuteNonQuery();
                 inserto = true;
                 MiConexion.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 inserto = false;
             }
             return inserto;
         }
 
-        public DataTable GetClientes()
+        public DataTable GetTicket()
         {
             DataTable dt = new DataTable();
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" SELECT * FROM CLIENTE ");
+                sql.Append(" SELECT * FROM TICKET ");
 
                 comando.Connection = MiConexion;
                 MiConexion.Open();
@@ -63,14 +63,14 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return dt;
         }
 
-        public bool ActualizarCliente(Cliente cliente)
+        public bool ActualizarTicket(Ticket ticket)
         {
             bool modifico = false;
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" UPDATE CLIENTE ");
-                sql.Append(" SET IDENTIDAD = @Identidad, NOMBRE = @Nombre, EMAIL = @Email  ");
+                sql.Append(" UPDATE TICKET ");
+                sql.Append(" SET FECHA = @Fecha, NOMBRE = @Nombre, TIPOSOPORTE = @TipoSoporte, ESTADO = @Estado ");
                 sql.Append(" WHERE ID = @Id; ");
 
                 comando.Connection = MiConexion;
@@ -78,14 +78,14 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
                 comando.Parameters.Clear();
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add("@Id", SqlDbType.Int).Value = cliente.Id;
-                comando.Parameters.Add("@Identidad", SqlDbType.NVarChar, 20).Value = cliente.Identidad;
-                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 70).Value = cliente.Nombre;
-                comando.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = cliente.Email;
+                comando.Parameters.Add("@Id", SqlDbType.Int).Value = ticket.Id;
+                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = ticket.Fecha;
+                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 30).Value = ticket.Nombre;
+                comando.Parameters.Add("@TipoSoporte", SqlDbType.NVarChar, 50).Value = ticket.TipoSoporte;
+                comando.Parameters.Add("@Estado", SqlDbType.NVarChar, 30).Value = ticket.Estado;
                 comando.ExecuteNonQuery();
                 modifico = true;
                 MiConexion.Close();
-
             }
             catch (Exception)
             {
@@ -94,13 +94,14 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return modifico;
         }
 
-        public bool EliminarUsuario(int id)
+        public bool EliminarTicket(int id)
         {
             bool elimino = false;
+
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" DELETE FROM CLIENTE ");
+                sql.Append(" DELETE FROM TICKET ");
                 sql.Append(" WHERE ID = @Id; ");
 
                 comando.Connection = MiConexion;
@@ -121,6 +122,6 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             return elimino;
         }
 
-        #endregion
+
     }
 }

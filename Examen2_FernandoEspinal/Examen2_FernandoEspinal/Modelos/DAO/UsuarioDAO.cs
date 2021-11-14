@@ -11,6 +11,7 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
     {
         SqlCommand comando = new SqlCommand();
 
+        #region PUBLIC BOOLS
         public bool ValidarUsuario(Usuario user)
         {
             bool valido = false;
@@ -33,7 +34,7 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             }
             return valido;
         }
-
+        
         public bool InsertarNuevoUsuario(Usuario user)
         {
             try
@@ -106,7 +107,7 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
                 modifico = true;
                 MiConexion.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return modifico;
             }
@@ -115,7 +116,7 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
 
         public bool EliminarUsuario(int Id)
         {
-            bool modifico = false;
+            bool elimino = false;
             try
             {
                 StringBuilder sql = new StringBuilder();
@@ -127,14 +128,14 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
                 comando.CommandText = sql.ToString();
                 comando.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
                 comando.ExecuteNonQuery();
-                modifico = true;
+                elimino = true;
                 MiConexion.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return modifico;
+                return elimino;
             }
-            return modifico;
+            return elimino;
 
         }
 
@@ -149,5 +150,7 @@ namespace Examen2_FernandoEspinal.Modelos.DAO
             for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
             return sb.ToString();
         }
+
+        #endregion
     }
 }

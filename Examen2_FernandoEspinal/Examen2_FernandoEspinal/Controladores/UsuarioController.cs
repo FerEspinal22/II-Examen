@@ -2,10 +2,6 @@
 using Examen2_FernandoEspinal.Modelos.Entidades;
 using Examen2_FernandoEspinal.Vistas;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Examen2_FernandoEspinal.Controladores
@@ -26,8 +22,10 @@ namespace Examen2_FernandoEspinal.Controladores
             vista.Load += new EventHandler(Load);
             vista.ModificarButton.Click += new EventHandler(Modificar);
             vista.EliminarButton.Click += new EventHandler(Eliminar);
+            vista.CancelarButton.Click += new EventHandler(Cancelar);
         }
 
+        #region EVENT HANDLERS
         private void Nuevo(object sender, EventArgs e)
         {
             HabilitarControles();
@@ -131,6 +129,15 @@ namespace Examen2_FernandoEspinal.Controladores
                 }
             }
         }
+
+        private void Cancelar(object sender, EventArgs e)
+        {
+            DeshabilitarControles();
+            LimpiarControles();
+            user = null;
+        }
+
+        #endregion
 
         public void ListarUsuarios()
         {
